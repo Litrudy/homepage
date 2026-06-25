@@ -356,12 +356,24 @@ strong { color: var(--text); font-weight: 700; }
   box-shadow: var(--shadow);
 }
 .about__avatar-inner {
+  position: relative;
   width: 100%; height: 100%;
   border-radius: 20px;
+  overflow: hidden;
   background: var(--bg-card);
   display: flex;
   align-items: center;
   justify-content: center;
+}
+/* 头像照片：存在则铺满覆盖字母，加载失败时 onerror 移除自身、露出字母兜底 */
+.about__avatar-img {
+  position: absolute;
+  inset: 0;
+  width: 100%; height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+.about__avatar-letter {
   font-size: 5rem;
   font-weight: 800;
   font-family: var(--font-mono);
