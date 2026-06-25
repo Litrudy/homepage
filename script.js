@@ -1,49 +1,6 @@
-/* ===== 数据 ===== */
-const ROLES = [
-  "编程爱好者",
-  "代码创造者",
-  "终身学习者",
-  "Bug 终结者 🐞",
-  "好奇心驱动 ✨",
-];
+/* ===== 主页逻辑（数据来自 data.js，通用交互来自 common.js） ===== */
 
-const SKILLS = [
-  { icon: "🐍", name: "Python", level: 85 },
-  { icon: "🌐", name: "JavaScript", level: 80 },
-  { icon: "🎨", name: "HTML / CSS", level: 88 },
-  { icon: "⚙️", name: "Git & 工具", level: 75 },
-  { icon: "🗄️", name: "数据库", level: 65 },
-  { icon: "🧠", name: "算法 & 数据结构", level: 70 },
-];
-
-const PROJECTS = [
-  {
-    emoji: "🚀",
-    title: "我的个人主页",
-    desc: "就是你正在看的这个网站！纯手写 HTML/CSS/JS，练习响应式布局与动画。",
-    tags: ["HTML", "CSS", "JavaScript"],
-  },
-  {
-    emoji: "🛠️",
-    title: "小工具集合",
-    desc: "平时为了偷懒写的各种脚本和小工具，自动化重复劳动，把时间还给摸鱼。",
-    tags: ["Python", "自动化"],
-  },
-  {
-    emoji: "📒",
-    title: "学习笔记",
-    desc: "记录学习过程中的踩坑与心得，整理成可复用的知识库，温故而知新。",
-    tags: ["Markdown", "笔记"],
-  },
-  {
-    emoji: "💡",
-    title: "更多想法孵化中",
-    desc: "脑子里总有一堆点子排队等着实现，敬请期待下一个有趣的小项目！",
-    tags: ["Coming soon"],
-  },
-];
-
-/* ===== 打字机效果 ===== */
+/* 打字机效果 */
 function typeWriter(el, words) {
   // 用户偏好减少动效时，直接显示第一个词
   if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
@@ -77,7 +34,7 @@ function typeWriter(el, words) {
   tick();
 }
 
-/* ===== 渲染技能 ===== */
+/* 渲染技能 */
 function renderSkills() {
   const grid = document.getElementById("skillsGrid");
   grid.innerHTML = SKILLS.map(
@@ -91,23 +48,28 @@ function renderSkills() {
   ).join("");
 }
 
-/* ===== 渲染项目 ===== */
+/* 渲染项目卡片（整卡可点击，跳转到详情页） */
 function renderProjects() {
   const grid = document.getElementById("projectsGrid");
   grid.innerHTML = PROJECTS.map(
     (p) => `
-    <article class="project reveal">
-      <div class="project__emoji">${p.emoji}</div>
+    <a class="project reveal" href="project.html?id=${encodeURIComponent(p.id)}"
+       aria-label="查看「${p.title}」详情">
+      <div class="project__top">
+        <span class="project__emoji">${p.emoji}</span>
+        ${p.type ? `<span class="project__type">${p.type}</span>` : ""}
+      </div>
       <h3 class="project__title">${p.title}</h3>
-      <p class="project__desc">${p.desc}</p>
+      <p class="project__desc">${p.summary}</p>
       <div class="project__tags">
         ${p.tags.map((t) => `<span class="project__tag">${t}</span>`).join("")}
       </div>
-    </article>`
+      <span class="project__more">查看详情 <span class="project__arrow">→</span></span>
+    </a>`
   ).join("");
 }
 
-/* ===== 滚动揭示 + 技能条动画 ===== */
+/* 滚动揭示 + 技能条动画 */
 function setupReveal() {
   const items = document.querySelectorAll(".reveal");
   const observer = new IntersectionObserver(
@@ -140,36 +102,7 @@ function setupReveal() {
   });
 }
 
-/* ===== 导航栏滚动状态 ===== */
-function setupNav() {
-  const nav = document.getElementById("nav");
-  const onScroll = () => nav.classList.toggle("nav--scrolled", window.scrollY > 20);
-  window.addEventListener("scroll", onScroll, { passive: true });
-  onScroll();
-}
-
-/* ===== 移动端菜单 ===== */
-function setupMobileNav() {
-  const nav = document.getElementById("nav");
-  const burger = document.getElementById("navBurger");
-  const links = document.getElementById("navLinks");
-
-  const setOpen = (open) => {
-    nav.classList.toggle("nav--open", open);
-    burger.setAttribute("aria-expanded", String(open));
-    burger.setAttribute("aria-label", open ? "关闭菜单" : "打开菜单");
-  };
-
-  burger.addEventListener("click", () => {
-    setOpen(!nav.classList.contains("nav--open"));
-  });
-  // 点击链接后收起菜单
-  links.addEventListener("click", (e) => {
-    if (e.target.tagName === "A") setOpen(false);
-  });
-}
-
-/* ===== 导航高亮跟随滚动 ===== */
+/* 导航高亮跟随滚动 */
 function setupScrollSpy() {
   const links = document.querySelectorAll(".nav__links a");
   const observer = new IntersectionObserver(
@@ -188,38 +121,26 @@ function setupScrollSpy() {
     { rootMargin: "-40% 0px -55% 0px" }
   );
   links.forEach((link) => {
-    const section = document.querySelector(link.getAttribute("href"));
+    const href = link.getAttribute("href");
+    if (!href || !href.startsWith("#")) return;
+    const section = document.querySelector(href);
     if (section) observer.observe(section);
   });
 }
 
-/* ===== 主题切换 ===== */
-function setupTheme() {
-  const toggle = document.getElementById("themeToggle");
-  // 初始主题已由 <head> 内联脚本提前应用，这里只需同步图标
-  syncIcon();
-
-  toggle.addEventListener("click", () => {
-    const next = document.documentElement.getAttribute("data-theme") === "light" ? "dark" : "light";
-    if (next === "light") {
-      document.documentElement.setAttribute("data-theme", "light");
-    } else {
-      document.documentElement.removeAttribute("data-theme");
-    }
-    localStorage.setItem("theme", next);
-    syncIcon();
-  });
-
-  function syncIcon() {
-    const isLight = document.documentElement.getAttribute("data-theme") === "light";
-    toggle.textContent = isLight ? "☀️" : "🌙";
-  }
+/* 用资料填充首屏静态文案 */
+function fillProfile() {
+  const nameEl = document.getElementById("heroName");
+  const cnEl = document.getElementById("heroCn");
+  if (nameEl) nameEl.textContent = PROFILE.name;
+  if (cnEl) cnEl.textContent = `中文名 · ${PROFILE.cnName}`;
 }
 
-/* ===== 初始化 ===== */
+/* 初始化 */
 document.addEventListener("DOMContentLoaded", () => {
   document.getElementById("year").textContent = new Date().getFullYear();
-  typeWriter(document.getElementById("typed"), ROLES);
+  fillProfile();
+  typeWriter(document.getElementById("typed"), PROFILE.roles);
   renderSkills();
   renderProjects();
   setupReveal();

@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Turdy — 一个热爱编程的爱好者的个人主页" />
-  <title>Turdy · 编程爱好者</title>
+  <meta name="description" content="张真 (Turdy) — 全栈开发者的个人主页，记录我的项目与折腾。" />
+  <title>张真 (Turdy) · 全栈开发者</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link
@@ -48,13 +48,14 @@
     <div class="hero__content">
       <p class="hero__badge">online · 正在折腾新项目</p>
       <p class="hero__greeting">你好，我是</p>
-      <h1 class="hero__name">Turdy</h1>
+      <h1 class="hero__name" id="heroName">Turdy</h1>
+      <p class="hero__cn" id="heroCn">中文名 · 张真</p>
       <h2 class="hero__role">
         <span class="hero__typed" id="typed"></span><span class="hero__cursor">|</span>
       </h2>
       <p class="hero__desc">
-        一个对代码充满好奇心的<strong>编程爱好者</strong>。
-        喜欢用代码把想法变成现实，享受解决问题的每一个瞬间。
+        一个热爱编程的<strong>全栈开发者</strong>。我为航运 / 船舶代理行业打造实用工具，
+        也在业余时间做独立游戏，享受用代码把想法变成现实的每一个瞬间。
       </p>
       <div class="hero__actions">
         <a href="#projects" class="btn btn--primary">看看我的项目</a>
@@ -79,20 +80,20 @@
         </div>
         <div class="about__text">
           <p>
-            嗨！我是 <strong>Turdy</strong>，一个纯粹因为热爱而走进编程世界的人。
+            嗨！我是 <strong>张真</strong>，英文名 <strong>Turdy</strong>，一个热爱编程的全栈开发者。
             从写下第一行 <code>Hello, World!</code> 开始，我就被那种「让机器听懂我」的感觉深深吸引。
           </p>
           <p>
-            对我来说，编程不只是工作，更是一种创作方式。无论是搭建一个小工具、
-            探索一个新框架，还是在深夜调通一个顽固的 bug，这个过程都让我乐在其中。
+            我为航运 / 船舶代理行业打造内部工具——从<strong>船舶动态与卸货跟踪</strong>，
+            到<strong>自动生成发票</strong>的系统，把繁琐重复的流程交给代码。
           </p>
           <p>
-            我相信「保持好奇、持续学习」是程序员最好的习惯。这个网站就是我记录成长、
-            分享想法的小天地。
+            工作之外，我在用 Godot 做一款修仙题材的独立游戏《合道》，
+            也会写些桌面小工具自娱自乐。这个网站就是我记录成长、整理项目的小天地。
           </p>
           <ul class="about__facts">
-            <li><span>🎯</span> 目标：写出优雅又好用的代码</li>
-            <li><span>📚</span> 状态：永远在学习的路上</li>
+            <li><span>🎯</span> 方向：全栈开发 + 工具自动化</li>
+            <li><span>🎮</span> 在做：Godot 修仙 Roguelite《合道》</li>
             <li><span>☕</span> 燃料：咖啡 + 好奇心</li>
           </ul>
         </div>
@@ -116,6 +117,7 @@
         <span class="section__num">03</span>
         <h2 class="section__title">项目 & 折腾</h2>
       </div>
+      <p class="section__lead reveal">来自我的 GitHub，点击任意卡片查看项目详情。</p>
       <div class="projects" id="projectsGrid">
         <!-- 由 JS 渲染 -->
       </div>
@@ -132,15 +134,15 @@
           想聊聊代码、项目，或者只是打个招呼？随时欢迎！
         </p>
         <div class="contact__links">
-          <a href="mailto:turdy@example.com" class="contact__card">
-            <span class="contact__icon">✉️</span>
-            <span class="contact__label">Email</span>
-            <span class="contact__value">turdy@example.com</span>
-          </a>
-          <a href="https://github.com/" target="_blank" rel="noopener" class="contact__card">
+          <a href="https://github.com/Litrudy" target="_blank" rel="noopener" class="contact__card">
             <span class="contact__icon">🐙</span>
             <span class="contact__label">GitHub</span>
-            <span class="contact__value">@turdy</span>
+            <span class="contact__value">@Litrudy</span>
+          </a>
+          <a href="mailto:13128577257@gmail.com" class="contact__card">
+            <span class="contact__icon">✉️</span>
+            <span class="contact__label">Email</span>
+            <span class="contact__value">13128577257@gmail.com</span>
           </a>
           <a href="#" class="contact__card">
             <span class="contact__icon">💬</span>
@@ -153,9 +155,11 @@
   </main>
 
   <footer class="footer">
-    <p>用 ❤️ 和代码打造 · © <span id="year"></span> Turdy</p>
+    <p>用 ❤️ 和代码打造 · © <span id="year"></span> 张真 (Turdy)</p>
   </footer>
 
+  <script src="data.js"></script>
+  <script src="common.js"></script>
   <script src="script.js"></script>
 </body>
 </html>
