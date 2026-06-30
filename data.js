@@ -13,6 +13,8 @@ const SKILLS = [
   { icon: "🐍", name: "Python / FastAPI", level: 90 },
   { icon: "🎨", name: "HTML / CSS / JS", level: 88 },
   { icon: "🌐", name: "TypeScript / React", level: 80 },
+  { icon: "🤖", name: "Kotlin / Jetpack Compose", level: 76 },
+  { icon: "🪟", name: "PySide6 / Desktop Apps", level: 75 },
   { icon: "🗄️", name: "SQLite / SQLAlchemy", level: 74 },
   { icon: "🎮", name: "Godot / GDScript", level: 72 },
   { icon: "▲", name: "Next.js", level: 68 },
@@ -21,6 +23,96 @@ const SKILLS = [
 /* 每个项目：homepage 用 emoji/title/summary/tags 渲染卡片，
    detail 用于 project.html?id=<id> 详情页。 */
 const PROJECTS = [
+  {
+    id: "todo-list",
+    emoji: "📱",
+    title: "ToDo 日程壁纸",
+    subtitle: "ToDo-list",
+    type: "Android 应用",
+    language: "Kotlin",
+    github: "https://github.com/Litrudy/ToDo-list",
+    summary:
+      "Android 本地 ToDo + Schedule 锁屏壁纸应用，把每日待办、当前日程和下一事件渲染成可自动更新的个性化壁纸。",
+    tags: ["Kotlin", "Jetpack Compose", "Room", "Wallpaper"],
+    detail: {
+      tagline: "把今天要做的事放到锁屏上",
+      overview: [
+        "这是一个 Android 本地 ToDo 与日程壁纸应用：用户可以维护每日待办和工作日 / 周末两套日程模板，应用根据当前时间生成锁屏壁纸。",
+        "壁纸会展示当前时间段、下一事件和今日未完成 ToDo，并支持内置背景或本地图片背景。应用会分析图片明暗与纹理，自动调整文字颜色、遮罩强度和排版位置。",
+        "项目针对 OriginOS 等系统限制做了尽力更新策略：打开 App、修改日程、修改 ToDo、手机重启或到达日程边界时都会尝试校正壁纸。",
+      ],
+      features: [
+        "Room 本地保存每日 ToDo，以及工作日 / 周末两套 Schedule 模板",
+        "日程支持新增、编辑、删除和多行批量导入，并校验 24 小时制与重叠时间段",
+        "根据日期和当前时间计算当前事件、下一事件和下一次壁纸更新时间",
+        "内置六套壁纸，也可选择本地图片作为背景",
+        "自动分析图片明暗和纹理，动态调整遮罩、文字颜色与正文位置",
+        "使用 AlarmManager 尝试在日程边界刷新壁纸，同时在 App 打开和系统事件中补偿校正",
+      ],
+      techStack: ["Kotlin", "Jetpack Compose", "Room", "AlarmManager", "Android Wallpaper"],
+      note: "2026-06-29 新增到 GitHub 的 Android 小工具项目。",
+    },
+  },
+  {
+    id: "desktop-pet",
+    emoji: "🖥️",
+    title: "桌面宠物",
+    subtitle: "DesktopPet",
+    type: "Windows 桌面应用",
+    language: "Python",
+    github: "https://github.com/Litrudy/DesktopPet",
+    summary:
+      "用 Python 3.12 和 PySide6 制作的 Windows 透明桌面宠物，支持多宠物模型包、托盘菜单、双语界面和开机自启。",
+    tags: ["Python", "PySide6", "Windows", "PyInstaller"],
+    detail: {
+      tagline: "可切换模型包的透明桌面宠物",
+      overview: [
+        "DesktopPet 是一个 Windows 10/11 桌面宠物应用，窗口透明、无边框、始终置顶，并通过 Qt 工具窗口隐藏任务栏入口。",
+        "项目把宠物资源拆成可替换的本地模型包，每个模型可以拥有自己的精灵图、元数据、默认行为参数和中英文对话文件。目前包含小鲨鱼、萨摩耶和英短猫。",
+        "应用围绕共享状态机驱动行为，覆盖闲置、行走、睡觉、开心、说话、拖拽和返回等状态，并提供设置窗口、右键菜单与系统托盘入口。",
+      ],
+      features: [
+        "透明无边框置顶窗口，支持多显示器移动范围和气泡位置计算",
+        "宠物模型包可切换，资源清单和中英文对话文件按模型独立维护",
+        "自动左右翻转移动帧，缺失动作或帧时使用透明占位兜底",
+        "支持点击、拖拽、睡觉、说话、闲置反应，以及安静模式和暂停模式",
+        "设置中可调整语言、缩放、移动速度和开机启动",
+        "测试覆盖配置恢复、资源扫描、状态切换、边界移动和气泡定位等核心逻辑",
+      ],
+      techStack: ["Python 3.12", "PySide6", "pytest", "PyInstaller", "Windows 10/11"],
+      note: "2026-06-29 新增到 GitHub 的桌面应用项目。",
+    },
+  },
+  {
+    id: "freetown-port-intro",
+    emoji: "⚓",
+    title: "弗里敦港沉浸式介绍页",
+    subtitle: "freetown-port-intro",
+    type: "静态网页 · 物流介绍",
+    language: "HTML",
+    github: "https://github.com/Litrudy/freetown-port-intro",
+    live: "https://litrudy.github.io/freetown-port-intro/",
+    summary:
+      "以深色电影感和滚动叙事呈现塞拉利昂弗里敦港物流实务，包含 WebGL 背景、视差图片、中英切换和静态部署。",
+    tags: ["HTML", "CSS", "JavaScript", "GSAP"],
+    detail: {
+      tagline: "弗里敦港物流实务的滚动叙事网页",
+      overview: [
+        "这是一个面向弗里敦港物流介绍的沉浸式静态页面，视觉参考偏深色电影感的滚动叙事风格，用左图右文、视差和区块转场组织信息。",
+        "项目采用原生 HTML / CSS / JS 单文件页面，本地 vendored 动效库，无构建步骤，可直接作为 GitHub Pages 静态站点部署。",
+        "页面同时考虑性能和可访问性：图片本地自托管并使用 WebP 主图与 JPG 兜底，触摸设备与减少动效偏好下会自动降级强动效。",
+      ],
+      features: [
+        "Lenis 惯性滚动与 GSAP / ScrollTrigger 统一编排动效",
+        "标题遮罩揭示、段落错峰入场、数字 count-up 和标签动画",
+        "左侧图片滚动视差，并用 clip-path 做擦除式换图",
+        "原生 WebGL shader 生成 hero 流体噪点背景",
+        "支持中 / 英语言切换，以及自定义磁吸光标",
+        "图片自托管，部署目录可通过 git subtree 发布到 gh-pages 分支",
+      ],
+      techStack: ["HTML5", "CSS", "JavaScript", "GSAP", "ScrollTrigger", "Lenis", "WebGL"],
+    },
+  },
   {
     id: "combine-dao",
     emoji: "🗡️",
